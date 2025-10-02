@@ -1,0 +1,113 @@
+
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+    <meta charset="UTF-8">
+    <title>Liisan passiivit 1</title>
+    <style>
+        body {
+            background-color: #D1E8B2;
+            font-family: "Comic Sans MS", cursive, sans-serif;
+            padding: 20px;
+        }
+        .container {
+            display: flex;
+            align-items: flex-start;
+        }
+        .left {
+            margin-right: 20px;
+        }
+        .left img {
+            height: 4cm;
+        }
+        .verbs {
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .exercise {
+            margin-bottom: 10px;
+        }
+        input[type="text"] {
+            border-radius: 10px;
+            border: 1px solid #ccc;
+            padding: 5px;
+            width: 150px;
+        }
+        .check-button {
+            background-color: #00636b;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        .correct {
+            background-color: lightgreen;
+        }
+        .incorrect {
+            background-color: lightcoral;
+        }
+        .feedback {
+            margin-left: 10px;
+            font-weight: bold;
+        }
+        #score {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="left">
+            <h1>Hoivatyön passiivit</h1>
+            <p>Valitse sopiva verbi. Käytä passiivia.</p>
+            <img src="https://kuha.papunet.net/api/image/23992?lang=fi" alt="Kuva">
+        </div>
+    </div>
+    <div class="verbs">VARATA  PYYHKIÄ  JÄRJESTÄÄ  PEDATA  ASETTAA  DESINFIOIDA  MUUTTAA  RAUHOITELLA</div>
+    <div class="exercise">1. Asiakkaalle <input type="text" id="q1"> aika muistihoitajalle.</div>
+    <div class="exercise">2. Lääkitystä <input type="text" id="q2">. Ehkä Ventolinea pitää lisätä.</div>
+    <div class="exercise">3. Emätinpuikko <input type="text" id="q3"> suihkun jälkeen.</div>
+    <div class="exercise">4. Asiakasta <input type="text" id="q4"> silittämällä ja juttelemalla.</div>
+    <div class="exercise">5. Ensin <input type="text" id="q5"> kädet.</div>
+    <div class="exercise">6. Pöydät <input type="text" id="q6"> ruokailun jälkeen.</div>
+    <div class="exercise">7. Vuode <input type="text" id="q7"> aamulla.</div>
+    <div class="exercise">8. Liinavaatevarasto <input type="text" id="q8"> kerran viikossa.</div>
+    <button class="check-button" onclick="checkAnswers()">Tarkista</button>
+    <div id="score"></div>
+
+    <script>
+        const correctAnswers = ["varataan", "muutetaan", "asetetaan", "rauhoitellaan", "desinfioidaan", "pyyhitään", "pedataan", "järjestetään"];
+
+        function checkAnswers() {
+            let score = 0;
+            for (let i = 1; i <= 8; i++) {
+                const input = document.getElementById("q" + i);
+                const userAnswer = input.value.trim().toLowerCase();
+                const correct = correctAnswers[i - 1];
+                const feedbackId = "feedback" + i;
+                let feedback = document.getElementById(feedbackId);
+                if (!feedback) {
+                    feedback = document.createElement("span");
+                    feedback.id = feedbackId;
+                    feedback.className = "feedback";
+                    input.parentNode.appendChild(feedback);
+                }
+                if (userAnswer === correct) {
+                    input.className = "correct";
+                    feedback.textContent = "";
+                    score++;
+                } else {
+                    input.className = "incorrect";
+                    feedback.textContent = " Oikea vastaus: " + correct;
+                }
+            }
+            document.getElementById("score").textContent = "Pisteet: " + score + " / 8";
+        }
+    </script>
+</body>
+</html>
